@@ -41,7 +41,7 @@ public class hotel{
                     break;
                 }
            
-                    if(Habitaciones[numHabitacion]>0 || Habitaciones[numHabitacion]<=5){
+                    if(Habitaciones[numHabitacion]>0 || Habitaciones[numHabitacion]<=habitacion){
 
                     System.out.println("Ingrese su nombre");
                     in.nextLine();
@@ -59,7 +59,7 @@ public class hotel{
                     String confirmar = in.nextLine().toLowerCase();
 
                 if(confirmar.equals("si")){
-                    System.out.println("Gracias por su reserva señor"+NombrePersona);
+                    System.out.println("Gracias por su reserva señor "+NombrePersona);
                     Users[numHabitacion]=NombrePersona;
                     Habitaciones[numHabitacion]= numHabitacion;
                     nightNumber[numHabitacion]= DiasStay;
@@ -90,10 +90,12 @@ public class hotel{
                     break;
                 case 3:
                 boolean HayReserva = false;
-                for(String Cliente : Users){
-                    if(Cliente!= null){
+                for(int i=0; i<habitacion;  i++){
+                    if(habitacionOcupadas[i]){
+                        System.out.println("Las habitaciones Ocupadas son : ");
+                        System.out.println(" La habitacion "+(i+1)+" del señor "+Users[i]);
                         HayReserva= true;
-                        break;
+                       
                     }
                     
                     }
@@ -101,45 +103,40 @@ public class hotel{
                         System.out.println(" No Hay Reservas para cancelar");
                         break;
                 }
-                System.out.println("Las Reservas que hay son :");
-                for (int i = 0; i < habitacion; i++) {
-                    if (Users[i]!=null) {
-                        System.out.println("La habitacion "+(Habitaciones[i]+1)+" es de "+Users[i]+ "y va estar "+nightNumber[i]+" Noches");
-                        System.out.println("Que reserva quieres cancelar");
-                         numHabitacion=in.nextInt() -1;
-                    if(numHabitacion<=0 || numHabitacion>=5){
-                        System.out.println("Numero de habitacion equivocado");
+                System.out.println("Que habitacion deseas cancelar");
+                int habitacionCancelar =in.nextInt() -1;
+               
+                    if (habitacionCancelar<0 || habitacionCancelar>=habitacion) {
+                        System.out.println("Numero invalido");
                         break;
                     }
-                    if(!habitacionOcupadas[numHabitacion]){
+                    if(!habitacionOcupadas[habitacionCancelar]){
                         System.out.println("la habitacion que acaba de ingresar no esta Ocupada");
                         break;
                     }
-                    if (habitacionOcupadas[numHabitacion]){
-                        nightNumber[numHabitacion] = 0;
-                        Users[numHabitacion] = null;
-                        habitacionOcupadas[numHabitacion]=false;
-                        Habitaciones[numHabitacion]=0;
+                    if (habitacionOcupadas[habitacionCancelar]){
+                        nightNumber[habitacionCancelar] = 0;
+                        Users[habitacionCancelar] = null;
+                        habitacionOcupadas[habitacionCancelar]=false;
+                        Habitaciones[habitacionCancelar]=0;
+                        System.out.println("Cancelacion correcta");
                     }
-                    }
+                    
                    
-                }
+                
                     
                     break;
                 case 4:
-                for (int i = 0; i < habitacion; i++) {
-                    
-                        if (habitacionOcupadas[i]) {
-                        System.out.println("La habitacion "+((Habitaciones[i])+1)+" es de "+Users[i]+ "y va estar "+nightNumber[i]);
-                        }
-                        else{
-                            System.out.println("No se han hecho Reservas");
-                            break;
-                        }
-                    }
-            
-                
-                    
+                boolean hayReservas = false;
+                for(int i=0; i<habitacion; i++) {
+                  if(habitacionOcupadas[i]) {
+                    System.out.println("Habitación "+(i+1)+": "+Users[i]+", "+nightNumber[i]+" noches");
+                     hayReservas = true;
+                  }
+                  }
+                  if(!hayReservas) {
+                 System.out.println("No se han hecho reservas");
+                  }
                     break;
                 case 5:
                 System.out.println("Saliendo del sistema ......");
