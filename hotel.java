@@ -139,11 +139,34 @@ public class hotel{
                   }
                     break;
                 case 5:
-                System.out.println("Saliendo del sistema ......");
-                    
-                    break;
-                    default:
-                    System.out.println("Opcion invalida");
+                System.out.println("REPORTE FINAL DEL HOTEL ");
+                System.out.println("---------------------------------");
+                
+                int ocupadas = 0;
+                double ingresosTotales = 0.0;
+                for (int i = 0; i < habitacion; i++) {
+                    System.out.print("Habitación " + (i+1) + ": ");
+                    if (habitacionOcupadas[i]) {
+                        ocupadas++;
+                        double total = nightNumber[i] * Money;
+                        ingresosTotales += total;
+                        System.out.println("OCUPADA por " + Users[i] + 
+                                         " - " + nightNumber[i] + " noches" +
+                                         " - Total: " + total);
+                    } else {
+                        System.out.println("DISPONIBLE");
+                    }
+                }
+                
+                System.out.println("\nRESUMEN FINAL:");
+                System.out.println("Habitaciones ocupadas: " + ocupadas);
+                System.out.println("Habitaciones disponibles: " + (habitacion - ocupadas));
+                System.out.println("Ingresos totales proyectados: " + ingresosTotales);
+                System.out.println("---------------------------------");
+                System.out.println("Saliendo del sistema...");
+                break;
+                default:
+                System.out.println("Opción inválida");
             }
             
         } while (opcion!=5);
