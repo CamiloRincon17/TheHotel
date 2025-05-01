@@ -3,21 +3,23 @@ public class hotel{
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int habitacion = 5;
-        String[] Users = new String[habitacion];
+        String[] Usuario = new String[habitacion];
         int[] Habitaciones =new int[habitacion];
-        double[] nightNumber =new double[habitacion];
+        int[] numerodenoches =new int[habitacion];
         boolean[] habitacionOcupadas = new boolean[habitacion];
-        double Money = 50;
+        int[] valorapagar = new int[habitacion];
+        double Precionoche = 50;
         int opcion=0;
-        System.out.println("Hi there, welcome to my hotel");
-        System.out.println("i'll show you my opcions");
+        System.out.println("¡Hola!, ¡Bienvenidos a mi hotel!");
+        System.out.println("¿Que quieres hacer?");
         do {
 
             System.out.println("1: Hacer reserva");
-            System.out.println("2: Disponibilidad");
+            System.out.println("2: Habitaciones diponibles");
             System.out.println("3: Cancelar reserva");
             System.out.println("4: Mostrar reservas");
-            System.out.println("5: Salir del menu");
+            System.out.println("5: Salir del menú");
+            System.out.println("6: Valor a pagar");
             opcion=in.nextInt();
             switch (opcion) {
                 case 1:
@@ -46,23 +48,25 @@ public class hotel{
                     System.out.println("Ingrese su nombre");
                     in.nextLine();
                     String NombrePersona=in.nextLine();
-                    System.out.println("Cuantos dias se quedara en el Hotel");
-                   int DiasStay=in.nextInt();
+                    System.out.println("Cuantas noches se quedara en el Hotel");
+                   int Nochesocupadas = in.nextInt();
                
                     System.out.println("\nResumen de reserva:");
                     System.out.println("Habitación: " + (numHabitacion+1));
                     System.out.println("Cliente: " + NombrePersona);
-                    System.out.println("Noches: " + DiasStay);
+                    System.out.println("Noches: " + Nochesocupadas);
                     System.out.println("Confirme si esta todo bien");
                     System.out.println("ingrese si o no");
                     in.nextLine();
                     String confirmar = in.nextLine().toLowerCase();
 
                 if(confirmar.equals("si")){
+                    System.out.println("---------------------------------");
                     System.out.println("Gracias por su reserva señor "+NombrePersona);
-                    Users[numHabitacion]=NombrePersona;
+                    System.out.println("---------------------------------");
+                    Usuario[numHabitacion]=NombrePersona;
                     Habitaciones[numHabitacion]= numHabitacion;
-                    nightNumber[numHabitacion]= DiasStay;
+                    numerodenoches[numHabitacion]= Nochesocupadas;
                     habitacionOcupadas[numHabitacion]=true;
 
 
@@ -77,8 +81,9 @@ public class hotel{
 
                 break;
                 case 2:
+                System.out.println("Habitaciones disponibles: ");
                 for (int i = 0; i < habitacion; i++) {
-                    
+                    System.out.println("---------------------");
                 
                 if(Habitaciones[i] == 0){
                     System.out.println("La habitacion "+(i+1)+(habitacionOcupadas[i] ? " Ocupada" : " Libre"));
@@ -86,14 +91,14 @@ public class hotel{
                 }
                
                 }
-
-                    break;
+                System.out.println("---------------------");
+                break;
                 case 3:
                 boolean HayReserva = false;
                 for(int i=0; i<habitacion;  i++){
                     if(habitacionOcupadas[i]){
                         System.out.println("Las habitaciones Ocupadas son : ");
-                        System.out.println(" La habitacion "+(i+1)+" del señor "+Users[i]);
+                        System.out.println(" La habitacion "+(i+1)+" del señor "+Usuario[i]);
                         HayReserva= true;
                        
                     }
@@ -111,12 +116,12 @@ public class hotel{
                         break;
                     }
                     if(!habitacionOcupadas[habitacionCancelar]){
-                        System.out.println("la habitacion que acaba de ingresar no esta Ocupada");
+                        System.out.println("la habitacion que acaba de ingresar no esta ocupada");
                         break;
                     }
                     if (habitacionOcupadas[habitacionCancelar]){
-                        nightNumber[habitacionCancelar] = 0;
-                        Users[habitacionCancelar] = null;
+                        numerodenoches[habitacionCancelar] = 0;
+                        Usuario[habitacionCancelar] = null;
                         habitacionOcupadas[habitacionCancelar]=false;
                         Habitaciones[habitacionCancelar]=0;
                         System.out.println("Cancelacion correcta");
@@ -130,7 +135,7 @@ public class hotel{
                 boolean hayReservas = false;
                 for(int i=0; i<habitacion; i++) {
                   if(habitacionOcupadas[i]) {
-                    System.out.println("Habitación "+(i+1)+": "+Users[i]+", "+nightNumber[i]+" noches");
+                    System.out.println("Habitación "+(i+1)+": "+Usuario[i]+", "+numerodenoches[i]+" noches");
                      hayReservas = true;
                   }
                   }
@@ -148,10 +153,10 @@ public class hotel{
                     System.out.print("Habitación " + (i+1) + ": ");
                     if (habitacionOcupadas[i]) {
                         ocupadas++;
-                        double total = nightNumber[i] * Money;
+                        double total = numerodenoches[i] * Precionoche;
                         ingresosTotales += total;
-                        System.out.println("OCUPADA por " + Users[i] + 
-                                         " - " + nightNumber[i] + " noches" +
+                        System.out.println("OCUPADA por " + Usuario[i] + 
+                                         " - " + numerodenoches[i] + " noches" +
                                          " - Total: " + total);
                     } else {
                         System.out.println("DISPONIBLE");
@@ -167,6 +172,26 @@ public class hotel{
                 break;
                 default:
                 System.out.println("Opción inválida");
+
+                case 6:
+                System.out.println("Ingrese el número de la habitación para calcular el valor a pagar (1-5):");
+                int habitacionConsulta = in.nextInt() - 1;
+                if (habitacionConsulta < 0 || habitacionConsulta >= habitacion) {
+                    System.out.println("Número de habitación inválido.");
+                    break;
+                }
+                if (!habitacionOcupadas[habitacionConsulta]) {
+                    System.out.println("La habitación " + (habitacionConsulta + 1) + " no está ocupada.");
+                    break;
+                }
+                int noches = numerodenoches[habitacionConsulta];
+                double totalPagar = noches * Precionoche;
+                System.out.println("El cliente " + Usuario[habitacionConsulta] + " debe pagar:");
+                System.out.println("Habitación: " + (habitacionConsulta + 1));
+                System.out.println("Noches reservadas: " + noches);
+                System.out.println("Precio por noche: " + Precionoche);
+                System.out.println("Total a pagar: " + totalPagar);
+                break;
             }
             
         } while (opcion!=5);
