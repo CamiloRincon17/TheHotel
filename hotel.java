@@ -18,8 +18,8 @@ public class hotel{
             System.out.println("2: Habitaciones diponibles");
             System.out.println("3: Cancelar reserva");
             System.out.println("4: Mostrar reservas");
-            System.out.println("5: Salir del menú");
-            System.out.println("6: Valor a pagar");
+            System.out.println("5: Valor a pagar");
+            System.out.println("6: Salir del menú");
             opcion=in.nextInt();
             switch (opcion) {
                 case 1:
@@ -170,8 +170,7 @@ public class hotel{
                 System.out.println("---------------------------------");
                 System.out.println("Saliendo del sistema...");
                 break;
-                default:
-                System.out.println("Opción inválida");
+                
 
                 case 6:
                 System.out.println("Ingrese el número de la habitación para calcular el valor a pagar (1-5):");
@@ -192,9 +191,11 @@ public class hotel{
                 System.out.println("Precio por noche: " + Precionoche);
                 System.out.println("Total a pagar: " + totalPagar);
                 break;
+                default:
+                System.out.println("Opción inválida");
             }
             
-        } while (opcion!=5);
+        }while (opcion!=6);
 
         
     }
